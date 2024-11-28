@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../public/styles.css" />
+  <title>Lista de Libros</title>
+</head>
+<header class="header-container">
+  <h1>Lista de Libros</h1>
+</header>
+<body>
+
+<main class="main-container">
+  <!-- Formulario de filtros -->
+  <form action="/books" method="GET" class="form-container-filters">
+    <label for="genre">Género:</label>
+    <select name="genre" id="genre">
+      <option value="">Todos</option>
+      <% genres.forEach(genre => { %>
+        <option value="<%= genre %>" <%= genre === genreFilter ? 'selected' : '' %>><%= genre %></option>
+      <% }); %>
+    </select>
+
+    <label for="available">Disponible:</label>
+    <select name="available" id="available">
+      <option value="">Todos</option>
+      <option value="true" <%= availableFilter === 'true' ? 'selected' : '' %>>Disponible</option>
+      <option value="false" <%= availableFilter === 'false' ? 'selected' : '' %>>No disponible</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+    <a href="/add-book">Agregar Nuevo Libro</a>
+    <a href="/logout">Cerrar sesión</a>
+  </form>
+
+  <% if (noBooksMessage) { %>
+    <p><%= noBooksMessage %></p>
+  <% } else { %>
+    <ol class="list-container">
+      <% books.forEach(book => { %>
+        <li>
+          <div class="book-info">
+            <strong> <%= book.title %></strong> <p><strong>Autor: </strong> <%= book.author %></p>
+            <span><strong>Genero: </strong>(<%= book.genre %>)</span>
+            <span><strong>Estado: </strong>(<%= book.available ? 'Disponible' : 'No disponible' %>)</span>
+          </div>
+          <div class="button-container">
+            <a href="/edit-book/<%= book.id %>">Editar</a>
+            <a href="/delete-book/<%= book.id %>">Eliminar</a>
+          </div>
+        </li>
+      <% }); %>
+    </ol>
+  <% } %>
+  
+</main>
+</body>
+</html>

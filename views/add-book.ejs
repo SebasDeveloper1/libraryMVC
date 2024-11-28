@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../public/styles.css" />
+    <title>Agregar Nuevo Libro</title>
+  </head>
+  <body>
+    <header class="header-container">
+      <h1>Agregar Nuevo Libro</h1>
+    </header>
+    <main class="main-container">
+      <form action="/add-book" method="POST" class="form-container">
+        <label for="title">Título:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="form-input"
+          required
+        />
+
+        <label for="author">Autor:</label>
+        <input
+          type="text"
+          id="author"
+          name="author"
+          class="form-input"
+          required
+        />
+
+        <label for="genre">Género:</label>
+        <select name="genre" id="genre" class="form-select" required>
+          <% genres.forEach(genre => { %>
+          <option value="<%= genre %>"><%= genre %></option>
+          <% }); %>
+        </select>
+
+        <div class="checkbox-container">
+          <label for="available">Disponible:</label>
+          <input
+            type="checkbox"
+            id="available"
+            name="available"
+            class="form-checkbox"
+          />
+        </div>
+
+        <button type="submit" class="form-button">Agregar Libro</button>
+      </form>
+    </main>
+  </body>
+</html>
